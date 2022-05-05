@@ -28,7 +28,7 @@ export async function importKey(privateKey: string) {
 
   await exec.exec(
     'gpg',
-    ['--batch', '--import-options', 'import-show', '--import', PRIVATE_KEY_FILE],
+    ['--batch', '--verbose', '--import-options', 'import-show', '--import', PRIVATE_KEY_FILE],
     options
   );
 
