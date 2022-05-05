@@ -8,7 +8,7 @@ import { ExecOptions } from '@actions/exec/lib/interfaces';
 
 export const PRIVATE_KEY_FILE = path.join(util.getTempDir(), 'private-key.asc');
 
-const PRIVATE_KEY_FINGERPRINT_REGEX = /\w{40}/;
+const PRIVATE_KEY_FINGERPRINT_REGEX = /\w{8,40}/;
 
 export async function importKey(privateKey: string) {
   fs.writeFileSync(PRIVATE_KEY_FILE, privateKey, {

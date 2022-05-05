@@ -102142,7 +102142,7 @@ const exec = __importStar(__nccwpck_require__(1514));
 const core = __importStar(__nccwpck_require__(2186));
 const util = __importStar(__nccwpck_require__(2629));
 exports.PRIVATE_KEY_FILE = path.join(util.getTempDir(), 'private-key.asc');
-const PRIVATE_KEY_FINGERPRINT_REGEX = /\w{40}/;
+const PRIVATE_KEY_FINGERPRINT_REGEX = /\w{8,40}/;
 function importKey(privateKey) {
     return __awaiter(this, void 0, void 0, function* () {
         fs.writeFileSync(exports.PRIVATE_KEY_FILE, privateKey, {
