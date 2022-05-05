@@ -42,7 +42,7 @@ export async function configureAuthentication() {
   if (gpgPrivateKey) {
     core.info('Importing private gpg key');
     // phil added this
-    core.info('gpg.PRIVATE_KEY_FILE: ${gpg.PRIVATE_KEY_FILE}');    
+    core.info('gpg.PRIVATE_KEY_FILE: ${gpg.PRIVATE_KEY_FILE}');
     const keyFingerprint = (await gpg.importKey(gpgPrivateKey)) || '';
     core.saveState(constants.STATE_GPG_PRIVATE_KEY_FINGERPRINT, keyFingerprint);
   }

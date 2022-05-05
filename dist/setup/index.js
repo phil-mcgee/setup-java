@@ -100514,6 +100514,8 @@ function configureAuthentication() {
         yield createAuthenticationSettings(id, username, password, settingsDirectory, overwriteSettings, gpgPassphrase);
         if (gpgPrivateKey) {
             core.info('Importing private gpg key');
+            // phil added this
+            core.info('gpg.PRIVATE_KEY_FILE: ${gpg.PRIVATE_KEY_FILE}');
             const keyFingerprint = (yield gpg.importKey(gpgPrivateKey)) || '';
             core.saveState(constants.STATE_GPG_PRIVATE_KEY_FINGERPRINT, keyFingerprint);
         }
@@ -102139,6 +102141,7 @@ const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const io = __importStar(__nccwpck_require__(7436));
 const exec = __importStar(__nccwpck_require__(1514));
+const core = __importStar(__nccwpck_require__(2186));
 const util = __importStar(__nccwpck_require__(2629));
 exports.PRIVATE_KEY_FILE = path.join(util.getTempDir(), 'private-key.asc');
 const PRIVATE_KEY_FINGERPRINT_REGEX = /\w{40}/;
@@ -102148,6 +102151,7 @@ function importKey(privateKey) {
             encoding: 'utf-8',
             flag: 'w'
         });
+        core.info(`PRIVATE_KEY_FILE: ${exports.PRIVATE_KEY_FILE}`);
         let output = '';
         const options = {
             silent: true,
@@ -102157,7 +102161,7 @@ function importKey(privateKey) {
                 }
             }
         };
-        yield exec.exec('gpg', ['--batch', '--import-options', 'import-show', '--import', exports.PRIVATE_KEY_FILE], options);
+        yield exec.exec('gpg', ['--batch', '--verbose', '--import-options', 'import-show', '--import', exports.PRIVATE_KEY_FILE], options);
         yield io.rmRF(exports.PRIVATE_KEY_FILE);
         const match = output.match(PRIVATE_KEY_FINGERPRINT_REGEX);
         return match && match[0];
