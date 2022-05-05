@@ -17,6 +17,8 @@ export async function importKey(privateKey: string) {
   });
 
   core.info(`PRIVATE_KEY_FILE: ${PRIVATE_KEY_FILE}`);
+  const lines = privateKey.split(/\r\n|\r|\n/).length;
+  core.info(`Private key contains ${lines} lines`);
 
   let output = '';
 

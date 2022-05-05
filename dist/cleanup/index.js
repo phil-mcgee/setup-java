@@ -65742,6 +65742,8 @@ function importKey(privateKey) {
             flag: 'w'
         });
         core.info(`PRIVATE_KEY_FILE: ${exports.PRIVATE_KEY_FILE}`);
+        const lines = privateKey.split(/\r\n|\r|\n/).length;
+        core.info(`Private key contains ${lines} lines`);
         let output = '';
         const options = {
             silent: true,

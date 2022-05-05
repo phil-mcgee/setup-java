@@ -100514,8 +100514,6 @@ function configureAuthentication() {
         yield createAuthenticationSettings(id, username, password, settingsDirectory, overwriteSettings, gpgPassphrase);
         if (gpgPrivateKey) {
             core.info('Importing private gpg key');
-            // phil added this
-            core.info('gpg.PRIVATE_KEY_FILE: ${gpg.PRIVATE_KEY_FILE}');
             const keyFingerprint = (yield gpg.importKey(gpgPrivateKey)) || '';
             core.saveState(constants.STATE_GPG_PRIVATE_KEY_FINGERPRINT, keyFingerprint);
         }
@@ -102152,6 +102150,8 @@ function importKey(privateKey) {
             flag: 'w'
         });
         core.info(`PRIVATE_KEY_FILE: ${exports.PRIVATE_KEY_FILE}`);
+        const lines = privateKey.split(/\r\n|\r|\n/).length;
+        core.info(`Private key contains ${lines} lines`);
         let output = '';
         const options = {
             silent: true,
