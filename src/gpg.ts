@@ -23,7 +23,6 @@ export async function importKey(privateKey: string) {
   let output = '';
 
   const options: ExecOptions = {
-    silent: true,
     listeners: {
       stdout: (data: Buffer) => {
         output += data.toString();
@@ -31,11 +30,7 @@ export async function importKey(privateKey: string) {
     }
   };
 
-  await exec.exec(
-    'gpg',
-    ['--batch', '--verbose', '--import-options', 'import-show', '--import', PRIVATE_KEY_FILE],
-    options
-  );
+  await exec.exec('gpg', ['--batch', '--verbose', '--import', PRIVATE_KEY_FILE], options);
 
   await io.rmRF(PRIVATE_KEY_FILE);
 

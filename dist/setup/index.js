@@ -102154,14 +102154,13 @@ function importKey(privateKey) {
         core.info(`Private key contains ${lines} lines`);
         let output = '';
         const options = {
-            silent: true,
             listeners: {
                 stdout: (data) => {
                     output += data.toString();
                 }
             }
         };
-        yield exec.exec('gpg', ['--batch', '--verbose', '--import-options', 'import-show', '--import', exports.PRIVATE_KEY_FILE], options);
+        yield exec.exec('gpg', ['--batch', '--verbose', '--import', exports.PRIVATE_KEY_FILE], options);
         yield io.rmRF(exports.PRIVATE_KEY_FILE);
         const match = output.match(PRIVATE_KEY_FINGERPRINT_REGEX);
         return match && match[0];
