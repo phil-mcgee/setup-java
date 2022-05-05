@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as io from '@actions/io';
 import * as exec from '@actions/exec';
+import * as core from '@actions/core';
 import * as util from './util';
 import { ExecOptions } from '@actions/exec/lib/interfaces';
 
@@ -14,6 +15,8 @@ export async function importKey(privateKey: string) {
     encoding: 'utf-8',
     flag: 'w'
   });
+
+  core.info(`PRIVATE_KEY_FILE: ${PRIVATE_KEY_FILE}`);
 
   let output = '';
 
